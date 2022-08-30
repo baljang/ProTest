@@ -7,6 +7,14 @@ public class Managers : MonoBehaviour
     static Managers s_instance; 
     public static Managers Instance { get { Init(); return s_instance; } }
 
+    InputManager _input = new InputManager();
+    ResourceManager _resource = new ResourceManager(); 
+    SceneManagerEx _scene = new SceneManagerEx();
+
+    public static InputManager Input { get { return Instance._input; } }
+    public static ResourceManager Resource { get { return Instance._resource; } }
+    public static SceneManagerEx Scene { get { return Instance._scene; } }
+
      void Start()
     {
         Init(); 
@@ -30,6 +38,6 @@ public class Managers : MonoBehaviour
 
     void Update()
     {
-        
+        _input.OnUpdate(); 
     }
 }
