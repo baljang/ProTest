@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InputManager 
 {
@@ -18,6 +19,9 @@ public class InputManager
     {
         if(MouseAction != null)
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+                return; 
+
             if (Input.GetMouseButton(0))
             {
                 MouseAction.Invoke(Define.MouseEvent.Press);
