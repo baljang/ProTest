@@ -5,31 +5,24 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_Button : UI_Base
+public class UI_Gauge : UI_Base
 {
 
     enum Buttons
     {
-        PointButton,
-        PointButton2,
+        UpButton,
+        DownButton,
     }
 
     enum Texts
     {
-        PointText, 
-        ScoreText
+        GaugeText
     }
 
     enum GameObjects
     {
-        TestObject,
         HPBar,
         MPBar,
-    }
-
-    enum Images
-    {
-        ItemIcon, 
     }
      
      void Start()
@@ -37,14 +30,9 @@ public class UI_Button : UI_Base
         Bind<Button>(typeof(Buttons));
         Bind<Text>(typeof(Texts));
         Bind<GameObject>(typeof(GameObjects)); 
-        Bind<Image>(typeof(Images));
 
-
-        GetButton((int)Buttons.PointButton).gameObject.AddUIEvent(OnButtonClicked);
-        GetButton((int)Buttons.PointButton2).gameObject.AddUIEvent(OnButtonClicked2); 
-
-        GameObject go = GetImage((int)Images.ItemIcon).gameObject;
-        AddUIEvent(go, (PointerEventData data) => { go.transform.position = data.position; }, Define.UIEvent.Drag);
+        GetButton((int)Buttons.UpButton).gameObject.AddUIEvent(OnButtonClicked);
+        GetButton((int)Buttons.DownButton).gameObject.AddUIEvent(OnButtonClicked2);     
     }
 
     int _score = 100;
@@ -56,7 +44,7 @@ public class UI_Button : UI_Base
         _score = Mathf.Clamp(_score + 10, 0, 100);
         chanHP_plus = true; 
 
-        GetText((int)Texts.ScoreText).text = $"HP : {_score}";
+        GetText((int)Texts.GaugeText).text = $"HP : {_score}/100";
     }
 
     public void OnButtonClicked2(PointerEventData data)
@@ -64,7 +52,7 @@ public class UI_Button : UI_Base
         _score = Mathf.Clamp(_score - 10, 0, 100);
         chanHP_minus = true;
 
-        GetText((int)Texts.ScoreText).text = $"HP : {_score}";
+        GetText((int)Texts.GaugeText).text = $"HP : {_score}/100";
     }
 
     void Update()
