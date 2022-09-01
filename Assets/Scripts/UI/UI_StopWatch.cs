@@ -64,7 +64,8 @@ public class UI_StopWatch : UI_Base
 
     public void OnInitiButtonClicked(PointerEventData data)
     {
-        seconds = 0; 
+        seconds = 0;
+        ShowOnDisplay();
     }
 
     void Update()
