@@ -60,12 +60,17 @@ public class UI_SlotMachine : UI_Base
         }  
     }
 
+    bool _isRunning = false;
+
     void OnSpinButtonClicked(PointerEventData data)
     {
+        if(_isRunning)
+            return;
         for (int i = 0; i < Slot.Length; i++)
         {
             co[i] = StartCoroutine(StartSlot(i));
         }
+        _isRunning = true;
     }
 
     IEnumerator StartSlot(int SlotIndex)
@@ -77,7 +82,7 @@ public class UI_SlotMachine : UI_Base
             {
                 SlotObject[SlotIndex].transform.localPosition += new Vector3(0, 1000f, 0);   
             }
-            yield return new WaitForSeconds(0.02f+SlotIndex*0.01f);
+            yield return new WaitForSeconds(0.01f+SlotIndex*0.005f);
         }
     }
 
@@ -104,9 +109,12 @@ public class UI_SlotMachine : UI_Base
         }
     }
 
-    int _index;
+    int _index = 0;
     void OnStopButtonClicked(PointerEventData data)
     {
+        if (!_isRunning)
+            return;
+
         GameObject go = Get<GameObject>((int)GameObjects.IndexInput).gameObject;
         string num = go.GetComponent<InputField>().text;
         if(num!="")
@@ -122,6 +130,9 @@ public class UI_SlotMachine : UI_Base
         {
             co[i] = StartCoroutine(IndexSlot(i, _index));
         }
+
+        _isRunning = false;
+        _index = 0; 
     }
 
     void Update()
