@@ -14,10 +14,13 @@ public class Scene2 : BaseScene
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            Managers.Scene.LoadScene(Define.Scene.Scene3); 
-        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+            GameQuit();
+    }
+
+    public void GameQuit()
+    {
+        Application.Quit();
     }
 
 
